@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/LoginPage.tsx'
 import RegisterPage from './pages/RegisterPage.tsx'
 import AbsensiPage from './pages/AbsensiPage.tsx'
+import Dashboard from './pages/Dashboard.tsx'
+import ScanPage from './pages/ScanPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,6 +18,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path='/register' element={<RegisterPage />} />
 
         <Route path='/absensi' element={<AbsensiPage />} />
+        <Route path='/scan' element={<ScanPage />} />
+        <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

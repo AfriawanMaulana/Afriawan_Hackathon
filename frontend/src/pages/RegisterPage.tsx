@@ -1,11 +1,12 @@
 
 import axios from "axios";
 import React, { useState, type SyntheticEvent } from "react"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 
 export default function RegisterPage() {
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
     const [status, setStatus] = useState('')
     const [registerForm, setRegisterForm] = useState({
         username: '',
@@ -48,6 +49,7 @@ export default function RegisterPage() {
         };
     };
 
+    if (token) return <Navigate to={'/'} replace />
     return (
         <div className="flex w-full h-screen items-center justify-center">
             <div className="p-6 rounded-xl shadow-sm shadow-black/50 w-96 md:w-1/3 flex flex-col space-y-6">
@@ -73,7 +75,7 @@ export default function RegisterPage() {
                             value={registerForm.email}
                             onChange={handleChange}
                             required
-                            className="p-2 rounded-md border focus:outline focus:outline-blue-300" 
+                            className="p-2 rounded-md border focus:outline focus:outline-blue-300 focus:invalid:outline-red-500" 
                         />
                     </div>
                     <div className="flex flex-col">

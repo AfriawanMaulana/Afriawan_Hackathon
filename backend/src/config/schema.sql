@@ -1,0 +1,22 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(55) UNIQUE NOT NULL,
+    email VARCHAR(55) UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
+
+CREATE TABLE qrcode (
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL,
+    value TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expired_at TIMESTAMP
+);
+
+CREATE TABLE data_absensi (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    username TEXT REFERENCES users(username) ON DELETE CASCADE,
+    absen_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    absen_location TEXT NOT NULL,
+)

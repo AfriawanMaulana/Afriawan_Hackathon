@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 
-const { checkUser } = require('../middlewares/authMiddleware');
+const { checkUser, verifyUser } = require('../middlewares/authMiddleware');
 
 router.post('/register', checkUser, async (req, res) => {
     const { username, email, password } = req.body;
@@ -54,5 +54,31 @@ router.post('/login', async (req, res) => {
     };
 });
 
+router.get('/users', verifyUser, async (req, res) => {
+    try {
+        const result = await db.query(
+            'SELECT id, username, email FROM users'
+        )
+        res.json(result.rows)
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
+})
+
+router.get('/profile', verifyUser, async (req, res) => {
+    try {
+        const result = await db.query(
+            'SELECT id, username, email FROM users WHERE id = $1',
+            [req.user.id]
+        );
+        res.json(result.rows[0]);
+    } catch (err) {
+        if (err instanceof Error) {
+            res.status(500).json({ error: err.message });
+        } else {
+            console.error('Unexpected error:', err)
+        }
+    } 
+})
 
 module.exports = router

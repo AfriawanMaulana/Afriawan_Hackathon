@@ -1,3 +1,4 @@
+require('dotenv').config();
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
@@ -21,5 +22,24 @@ const checkUser = async (req, res, next) => {
     };
 };
 
+const verifyUser = async (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return res.status(401).json({ error: 'Token no provided'});
 
-module.exports = { checkUser }
+    const token = authHeader.split(' ')[1];
+    try {
+        const userValidation = jwt.verify(token, process.env.JWT_KEY);
+        if (!userValidation) return res.status(401).json({ error: 'failed to verify'});
+        req.user = userValidation;
+        next();
+    } catch (err) {
+        if (err instanceof Error) {
+            req.status(500).json({ error: err.message })
+        } else {
+            console.error('Unexpected error:', err);
+        }
+    };
+};
+
+
+module.exports = { checkUser, verifyUser }

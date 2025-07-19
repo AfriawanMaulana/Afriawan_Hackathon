@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useState, type SyntheticEvent } from "react"
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 export default function LoginPage() {
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
     const [loginForm, setLoginForm] = useState({
         email: '',
         password: ''
@@ -40,19 +41,21 @@ export default function LoginPage() {
         };
     };
 
+    if (token) return <Navigate to={'/'} replace />
     return (
         <div className="flex w-full h-screen items-center justify-center">
             <div className="p-6 rounded-xl shadow-sm shadow-black/50 w-96 md:w-1/3 flex flex-col space-y-6">
                 <h1 className="font-black text-2xl">Login to your account</h1>
                 <form onSubmit={handleLogin} action="./LoginPage.tsx" method="post" className="flex flex-col space-y-4">
                     <div className="flex flex-col">
-                        <label className="text-sm font-semibold text-slate-600">Username or Email</label>
+                        <label className="text-sm font-semibold text-slate-600">Email</label>
                         <input 
-                            type="text" 
+                            type="email" 
                             name="email"
                             value={loginForm.email}
                             onChange={handleChange}
-                            className="p-2 rounded-md border focus:outline focus:outline-blue-300" 
+                            required
+                            className="p-2 rounded-md border focus:outline focus:outline-blue-300 focus:invalid:outline-red-500" 
                         />
                     </div>
                     <div className="flex flex-col">
@@ -63,6 +66,7 @@ export default function LoginPage() {
                             onKeyDown={blockSpace}
                             value={loginForm.password}
                             onChange={handleChange}
+                            required
                             className="p-2 rounded-md border focus:outline focus:outline-blue-300" 
                         />
                     </div>
