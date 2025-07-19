@@ -1,0 +1,21 @@
+*PROJECT INI BERNAMA "ABSENSIKU", BERTUJUAN UNTUK MENGATUR ABSENSI DI SUATU PERUSAHAN DENGAN MENGGUNAKAN QR-CODE. (BELOM JADI KAK, SKILL ISSUE 😭🙏)*
+
+TECH STACK BACKEND:
+- NODE JS
+- EXPRESS
+
+TECH STACK FRONTEND:
+- REACT (VITE)
+- TAILWINDCSS
+
+BACKEND:
+- POSTGRESQL
+
+*CARA PENGINSTALLAN*
+- CLONE REPOSITORY
+- melakukan penginstallan "npm install" di folder backend & frontend
+- menjalankan backend & frontend "npm run dev"
+
+*LOGIN CREDENTIAL*
+email: admin@gmail.com
+pass: admin1234
