@@ -94,7 +94,7 @@ export default function Dashboard() {
         getQRCode();
     }, [])
 
-    if (profileData?.username.toLowerCase() !== "admin" || !token) return <Navigate to={'/'} replace /> 
+    if (!token) return <Navigate to={'/'} replace /> 
     return (
         <div className="flex">
             <SideNav />
